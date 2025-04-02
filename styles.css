@@ -35,9 +35,8 @@ body {
 }
 
 .logo {
-    width: 200px;
-    height: auto;
-    margin-bottom: 1rem;
+    height: 40px;
+    width: auto;
 }
 
 /* 返回按鈕樣式 */
@@ -397,10 +396,5 @@ video {
 
     header h1 {
         font-size: 1.5rem;
-    }
-
-    .logo {
-        width: 150px;
-        height: auto;
     }
 } 
