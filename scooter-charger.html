@@ -90,44 +90,58 @@
 
     <script>
         // 標籤切換功能
-        document.querySelectorAll('.tab-btn').forEach(button => {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // 移除所有活動狀態
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-                
-                // 添加新的活動狀態
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                // 添加當前活動狀態
                 button.classList.add('active');
-                document.getElementById(button.dataset.tab).classList.add('active');
+                const targetPane = document.querySelector(button.getAttribute('data-tab'));
+                if (targetPane) {
+                    targetPane.classList.add('active');
+                }
             });
         });
 
-        // 說明書滑動功能
-        let currentSlide = 0;
+        // 手動滑動功能
         const slider = document.querySelector('.manual-slider');
         const slides = document.querySelectorAll('.manual-slide');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
 
         function updateSlider() {
-            const slideWidth = slider.clientWidth;
-            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
         }
 
-        function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlider();
-            }
-        }
-
-        function prevSlide() {
+        prevBtn.addEventListener('click', () => {
             if (currentSlide > 0) {
                 currentSlide--;
                 updateSlider();
             }
-        }
+        });
 
-        // 監聽視窗大小變化
-        window.addEventListener('resize', updateSlider);
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        });
+
+        // 視窗大小改變時重新計算滑動
+        window.addEventListener('resize', () => {
+            updateSlider();
+        });
+
+        // 初始化滑動器
+        updateSlider();
     </script>
 </body>
 </html> 

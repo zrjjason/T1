@@ -113,23 +113,26 @@
 .manual-container {
     width: 100%;
     overflow: hidden;
+    position: relative;
 }
 
 .manual-slider {
     display: flex;
     transition: transform 0.3s ease;
-    gap: 1rem;
+    width: 100%;
 }
 
 .manual-slide {
     min-width: 100%;
     flex-shrink: 0;
+    padding: 0 1rem;
 }
 
 .manual-slide img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .slider-controls {
@@ -150,7 +153,12 @@
     font-family: "Microsoft JhengHei", sans-serif;
 }
 
-.slider-btn:hover {
+.slider-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.slider-btn:hover:not(:disabled) {
     background: #555;
 }
 
