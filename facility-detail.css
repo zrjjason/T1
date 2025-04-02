@@ -1,0 +1,244 @@
+/* 設備詳情頁面樣式 */
+.tab-container {
+    max-width: 1200px;
+    margin: 5rem auto 2rem;
+    padding: 0 1rem;
+    margin-top: 90px;
+}
+
+/* 標籤按鈕組 */
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Microsoft JhengHei", sans-serif;
+}
+
+.tab-btn.active {
+    background: #333;
+    color: white;
+}
+
+.tab-btn:hover:not(.active) {
+    background: #e0e0e0;
+}
+
+/* 內容區域 */
+.tab-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 400px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* 簡介內容樣式 */
+.intro-content {
+    line-height: 1.8;
+}
+
+.intro-content h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.intro-image {
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.intro-image:hover img {
+    transform: scale(1.02);
+}
+
+.intro-content p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+/* 影片區域樣式 */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 比例 */
+    margin-bottom: 1.5rem;
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* 說明書區域樣式 */
+.manual-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.manual-slider {
+    display: flex;
+    transition: transform 0.3s ease;
+    gap: 1rem;
+}
+
+.manual-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.manual-slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.slider-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Microsoft JhengHei", sans-serif;
+}
+
+.slider-btn:hover {
+    background: #555;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .tab-container {
+        margin-top: 4.5rem;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+        padding: 0.8rem;
+    }
+
+    .tab-btn {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+    }
+
+    .tab-content {
+        padding: 1.5rem;
+    }
+
+    .intro-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .slider-controls {
+        flex-wrap: wrap;
+    }
+
+    .slider-btn {
+        flex: 1;
+        min-width: 120px;
+        font-size: 0.9rem;
+    }
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+}
+
+.logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.back-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:before {
+    content: '←';
+    font-size: 1.2rem;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+} 
