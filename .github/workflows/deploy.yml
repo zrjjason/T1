@@ -16,22 +16,8 @@ jobs:
         with:
           node-version: '16'
           
-      - name: Install http-server
-        run: npm install -g http-server
+      - name: Install dependencies
+        run: npm install
         
       - name: Deploy
-        run: |
-          # 創建一個簡單的 index.html 作為入口
-          echo '<!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0; url=index.html">
-          </head>
-          <body>
-            <p>正在重定向到首頁...</p>
-          </body>
-          </html>' > index.html
-          
-          # 部署到 GitHub Pages
-          npx gh-pages -d . 
+        run: npm run deploy 
