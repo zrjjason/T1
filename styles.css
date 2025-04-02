@@ -35,7 +35,7 @@ body {
 }
 
 .logo {
-    height: 50px;
+    height: 40px;
     width: auto;
 }
 
@@ -151,17 +151,30 @@ body {
 /* 頁尾樣式 */
 footer {
     background-color: #333;
-    color: white;
-    padding: 2rem 0;
-    margin-top: 2rem;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.footer-logo {
+    margin-bottom: 1rem;
+}
+
+.footer-logo img {
+    width: 120px;
+    height: auto;
 }
 
 .contact-info {
-    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .contact-info p {
     margin: 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* 樓層導航 */
