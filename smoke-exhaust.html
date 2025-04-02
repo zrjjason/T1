@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>興富發T1生活設備手冊</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="facility-detail.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="images/highwealth-logo.png" alt="興富發建設" class="logo">
+            </a>
+        </div>
+        <a href="office-rf.html" class="back-btn">返回</a>
+    </header>
+
+    <main class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="intro">簡介</button>
+            <button class="tab-btn" data-tab="video">教學影片</button>
+            <button class="tab-btn" data-tab="manual">說明書</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- 簡介內容 -->
+            <div class="tab-pane active" id="intro">
+                <div class="intro-content">
+                    <h2>自動排煙窗</h2>
+                    <div class="intro-image">
+                        <img src="images/smoke-exhaust.jpg" alt="自動排煙窗">
+                    </div>
+                    <p>自動排煙窗是一種智能化的建築安全設施，主要用於火災發生時的煙霧排除。當火災發生時，系統會自動開啟排煙窗，協助將濃煙排出建築物外，確保逃生通道的暢通。</p>
+                    <p>主要功能：</p>
+                    <ul>
+                        <li>火災時自動開啟，排出濃煙</li>
+                        <li>可手動控制開關</li>
+                        <li>與消防系統連動</li>
+                        <li>具備防雨功能</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 教學影片 -->
+            <div class="tab-pane" id="video">
+                <div class="video-container">
+                    <video controls>
+                        <source src="videos/smoke-exhaust.mp4" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <!-- 說明書 -->
+            <div class="tab-pane" id="manual">
+                <div class="manual-container">
+                    <div class="manual-slider">
+                        <div class="manual-slide">
+                            <img src="images/smoke-exhaust-manual-1.jpg" alt="自動排煙窗說明書第1頁">
+                        </div>
+                        <div class="manual-slide">
+                            <img src="images/smoke-exhaust-manual-2.jpg" alt="自動排煙窗說明書第2頁">
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn" onclick="prevSlide()">上一頁</button>
+                        <button class="slider-btn" onclick="nextSlide()">下一頁</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="images/company-logo.png" alt="興富發建設">
+        </div>
+        <div class="contact-info">
+            <p>Tel：(02)2755-5899</p>
+            <p>Fax：(02)2755-5988</p>
+            <p>suggestion@highwealth.com.tw</p>
+            <p>10491台北市中山區樂群二路267號10樓</p>
+        </div>
+    </footer>
+
+    <script>
+        // 標籤切換功能
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有活動狀態
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                
+                // 添加新的活動狀態
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // 說明書滑動功能
+        let currentSlide = 0;
+        const slider = document.querySelector('.manual-slider');
+        const slides = document.querySelectorAll('.manual-slide');
+
+        function updateSlider() {
+            const slideWidth = slider.clientWidth;
+            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        // 監聽視窗大小變化
+        window.addEventListener('resize', updateSlider);
+    </script>
+</body>
+</html> 

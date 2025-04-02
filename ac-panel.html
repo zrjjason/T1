@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>興富發T1生活設備手冊</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="facility-detail.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="images/highwealth-logo.png" alt="興富發建設" class="logo">
+            </a>
+        </div>
+        <a href="office-rf.html" class="back-btn">返回</a>
+    </header>
+
+    <main class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="intro">簡介</button>
+            <button class="tab-btn" data-tab="video">教學影片</button>
+            <button class="tab-btn" data-tab="manual">說明書</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- 簡介內容 -->
+            <div class="tab-pane active" id="intro">
+                <div class="intro-content">
+                    <h2>空調系統面板</h2>
+                    <div class="intro-image">
+                        <img src="images/ac-panel.jpg" alt="空調系統面板">
+                    </div>
+                    <p>空調系統面板是一套智能化的溫度控制系統，提供精確的室內溫度管理。透過直覺的操作介面，使用者可以輕鬆調節溫度、風速和運作模式，創造舒適的辦公環境。</p>
+                    <p>主要功能：</p>
+                    <ul>
+                        <li>溫度精確控制</li>
+                        <li>風速多段調節</li>
+                        <li>運作模式切換</li>
+                        <li>定時開關設定</li>
+                        <li>節能模式選擇</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 教學影片 -->
+            <div class="tab-pane" id="video">
+                <div class="video-container">
+                    <video controls>
+                        <source src="videos/ac-panel.mp4" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <!-- 說明書 -->
+            <div class="tab-pane" id="manual">
+                <div class="manual-container">
+                    <div class="manual-slider">
+                        <div class="manual-slide">
+                            <img src="images/ac-panel-manual-1.jpg" alt="空調系統面板說明書第1頁">
+                        </div>
+                        <div class="manual-slide">
+                            <img src="images/ac-panel-manual-2.jpg" alt="空調系統面板說明書第2頁">
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn" onclick="prevSlide()">上一頁</button>
+                        <button class="slider-btn" onclick="nextSlide()">下一頁</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="images/company-logo.png" alt="興富發建設">
+        </div>
+        <div class="contact-info">
+            <p>Tel：(02)2755-5899</p>
+            <p>Fax：(02)2755-5988</p>
+            <p>suggestion@highwealth.com.tw</p>
+            <p>10491台北市中山區樂群二路267號10樓</p>
+        </div>
+    </footer>
+
+    <script>
+        // 標籤切換功能
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有活動狀態
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                
+                // 添加新的活動狀態
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // 說明書滑動功能
+        let currentSlide = 0;
+        const slider = document.querySelector('.manual-slider');
+        const slides = document.querySelectorAll('.manual-slide');
+
+        function updateSlider() {
+            const slideWidth = slider.clientWidth;
+            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        // 監聽視窗大小變化
+        window.addEventListener('resize', updateSlider);
+    </script>
+</body>
+</html> 

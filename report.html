@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>興富發T1生活設備手冊</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .pdf-container {
+            max-width: 1200px;
+            margin: 90px auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 1000px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        #pdf-canvas {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pdf-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .pdf-button {
+            padding: 0.8rem 1.5rem;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pdf-button:hover {
+            background: #555;
+        }
+
+        .pdf-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-container {
+                margin-top: 70px;
+            }
+            .pdf-viewer {
+                height: 800px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // 設定 PDF.js 的工作路徑
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.2;
+
+        function renderPage(num) {
+            pageRendering = true;
+            console.log('開始渲染第 ' + num + ' 頁');
+            
+            pdfDoc.getPage(num).then(function(page) {
+                console.log('成功獲取第 ' + num + ' 頁');
+                const viewport = page.getViewport({scale: scale});
+                const canvas = document.getElementById('pdf-canvas');
+                const ctx = canvas.getContext('2d');
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                const renderTask = page.render(renderContext);
+
+                renderTask.promise.then(function() {
+                    console.log('第 ' + num + ' 頁渲染完成');
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                }).catch(function(error) {
+                    console.error('渲染錯誤:', error);
+                    pageRendering = false;
+                });
+            }).catch(function(error) {
+                console.error('獲取頁面錯誤:', error);
+                pageRendering = false;
+            });
+
+            document.getElementById('page-num').textContent = num;
+        }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+
+        // 載入 PDF 檔案
+        console.log('開始載入 PDF 檔案...');
+        pdfjsLib.getDocument({
+            url: 'pdfs/inspection-report.pdf',
+            cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+            cMapPacked: true
+        }).promise.then(function(pdf) {
+            console.log('PDF 檔案載入成功，總頁數:', pdf.numPages);
+            pdfDoc = pdf;
+            document.getElementById('page-count').textContent = pdf.numPages;
+            renderPage(pageNum);
+        }).catch(function(error) {
+            console.error('PDF 載入錯誤:', error);
+            document.getElementById('pdf-canvas').innerHTML = '<p style="color: red; text-align: center; padding: 20px;">PDF 載入失敗，請確認檔案是否存在。<br>錯誤訊息: ' + error.message + '</p>';
+        });
+
+        // 鍵盤控制
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                onPrevPage();
+            } else if (e.key === 'ArrowRight') {
+                onNextPage();
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="images/highwealth-logo.png" alt="興富發建設" class="logo">
+            </a>
+        </div>
+        <a href="index.html" class="back-btn">返回</a>
+    </header>
+
+    <main class="pdf-container">
+        <div class="pdf-viewer">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+        <div class="pdf-controls">
+            <button class="pdf-button" onclick="onPrevPage()" id="prev">上一頁</button>
+            <span class="page-info">第 <span id="page-num"></span> 頁 / 共 <span id="page-count"></span> 頁</span>
+            <button class="pdf-button" onclick="onNextPage()" id="next">下一頁</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="images/company-logo.png" alt="興富發建設">
+        </div>
+        <div class="contact-info">
+            <p>Tel：(02)2755-5899</p>
+            <p>Fax：(02)2755-5988</p>
+            <p>suggestion@highwealth.com.tw</p>
+            <p>10491台北市中山區樂群二路267號10樓</p>
+        </div>
+    </footer>
+</body>
+</html> 
