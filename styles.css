@@ -50,7 +50,7 @@ body {
 .back-btn {
     background: rgba(255,255,255,0.1);
     color: white;
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -335,34 +335,122 @@ video {
 /* 響應式設計 */
 @media (max-width: 768px) {
     .main-header {
-        padding: 0.25rem 1rem;
+        padding: 0.5rem 1rem;
+        height: 60px;
     }
 
-    .logo-container {
-        width: 100px;
+    .logo {
+        height: 30px;
+    }
+
+    .header-title {
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
     }
 
     .back-btn {
-        right: 10px;
-        font-size: 0.8rem;
         padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
     }
 
     .floor-preview {
-        margin-top: 4.5rem;
+        padding: 80px 1rem 2rem;
+    }
+
+    .floor-card {
+        margin-bottom: 1rem;
     }
 
     .floor-image {
-        height: 30vh;
+        height: 200px;
     }
 
     .floor-image h2 {
-        font-size: 1.5rem;
-        padding: 0.3rem 1.5rem;
+        font-size: 1.2rem;
     }
 
-    .floor-card:hover .floor-image h2 {
-        padding: 0.4rem 1.8rem;
+    .floor-detail {
+        padding: 80px 1rem 2rem;
+    }
+
+    .facility-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .facility-item {
+        margin-bottom: 1rem;
+    }
+
+    .facility-image {
+        height: 200px;
+    }
+
+    .facility-image h3 {
+        font-size: 1.1rem;
+    }
+
+    .tab-container {
+        padding: 80px 1rem 2rem;
+    }
+
+    .tab-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .tab-content {
+        padding: 1rem 0;
+    }
+
+    .intro-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .intro-content p {
+        font-size: 0.9rem;
+    }
+
+    .video-container {
+        height: 200px;
+    }
+
+    .manual-container {
+        padding: 1rem 0;
+    }
+
+    .manual-slide img {
+        max-height: 400px;
+    }
+
+    .slider-controls {
+        gap: 0.5rem;
+    }
+
+    .slider-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    footer {
+        padding: 1.5rem 1rem;
+    }
+
+    .footer-logo img {
+        width: 100px;
+    }
+
+    .contact-info {
+        max-width: 300px;
+    }
+
+    .contact-info p {
+        font-size: 0.8rem;
     }
 
     .floor-nav ul {
@@ -381,10 +469,6 @@ video {
 
     .tabs {
         flex-direction: column;
-    }
-
-    .tab-btn {
-        width: 100%;
     }
 
     header h1 {
